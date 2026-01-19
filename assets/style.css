@@ -1,156 +1,308 @@
-/* General Reset */
+
+/* Reset some default styles (optional but recommended) */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f4f7f6;
-    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #0f0f23;
+    color: #e0e0e0;
     line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }
 
-/* Navbar Layout */
-.navbar {
-    background-color: #2c3e50;
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    height: 60px;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-/* Base Link Styles */
-.nav-links a, .dropbtn {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-}
-
-/* Dropdown Container */
-.dropdown {
+/* === Navigation === */
+.main-nav {
+    background: #1a1a2e;
+    padding: 0.8rem 2rem;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.3);
     position: relative;
-    display: inline-block;
+    z-index: 1000;
 }
 
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 4px;
-    top: 100%; /* Appears right below the button */
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: #333;
-    padding: 12px 16px;
+/* Logo / Home */
+.logo {
+    color: #00d4ff;
+    font-size: 1.5rem;
+    font-weight: bold;
     text-decoration: none;
-    display: block;
-    transition: background 0.2s;
+    transition: color 0.3s;
 }
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-    color: #3498db;
+.logo:hover {
+    color: #fff;
 }
 
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
+/* Right side container */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-/* Simple Arrow Icon */
-.arrow {
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    display: inline-block;
-    padding: 3px;
-    margin-left: 5px;
-    margin-bottom: 3px;
-    transform: rotate(45deg);
+/* === Logged In - Dropdown === */
+.user-dropdown {
+    position: relative;
 }
 
-
-/* Main Container for Pages */
-h2, h1 {
-    text-align: center;
-    margin-top: 2rem;
-    color: #2c3e50;
-}
-
-/* Form Styling */
-form {
-    background: #fff;
-    max-width: 400px;
-    margin: 2rem auto;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #3498db;
+.user-btn {
+    background: none;
     border: none;
     color: white;
     font-size: 1rem;
-    font-weight: bold;
-    border-radius: 4px;
     cursor: pointer;
-    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.25s;
 }
 
-button:hover {
-    background-color: #2980b9;
+.user-btn:hover {
+    background: rgba(255,255,255,0.1);
 }
 
-/* Footer Styling */
-footer {
-    margin-top: auto;
-    background-color: #2c3e50;
+.user-name {
+    font-weight: 500;
+}
+
+.dropdown-icon {
+    fill: currentColor;
+    transition: transform 0.3s;
+}
+
+.user-dropdown:hover .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #16213e;
+    border-radius: 8px;
+    min-width: 160px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+}
+
+.user-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px 16px;
+    color: #e0e0e0;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.dropdown-item:hover {
+    background: #0f3460;
     color: white;
-    text-align: center;
-    padding: 1rem 0;
 }
 
-.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 10px;
+.dropdown-item.logout {
+    color: #ff6b6b;
+}
+
+.dropdown-item.logout:hover {
+    background: rgba(255,107,107,0.15);
+    color: #ff8787;
+}
+
+/* === Not Logged In - Buttons === */
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+}
+
+.btn-login {
+    color: #00d4ff;
+    border: 1px solid #00d4ff;
+}
+
+.btn-login:hover {
+    background: #00d4ff;
+    color: #0f0f23;
+}
+
+.btn-register {
+    background: #00d4ff;
+    color: #0f0f23;
+}
+
+.btn-register:hover {
+    background: #00b8d9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,212,255,0.3);
+}
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-light: #f8fafc;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --white: #ffffff;
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+.page-wrapper {
+    padding-bottom: 50px;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 100px 0 80px;
+    background: radial-gradient(circle at top right, #eef2ff, transparent);
     text-align: center;
-    border: 1px solid #f5c6cb;
+}
+
+.welcome-box h1 {
+    font-size: 3rem;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.highlight {
+    color: var(--primary);
+}
+
+.lead-text {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+/* Buttons */
+.btn {
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    border: 2px solid #e2e8f0;
+    color: var(--text-dark);
+    margin-left: 10px;
+}
+
+.btn-outline:hover {
+    background: #f1f5f9;
+}
+
+/* Feature Cards */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.feature-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    background: #f5f3ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 24px;
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #dcfce7;
+    color: #166534;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .auth-buttons {
+        width: 100%;
+        justify-content: center;
+    }
 }

@@ -1,10 +1,10 @@
 <?php
-$servername = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "my_testing_db"; // Make sure this database exists in phpMyAdmin
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "tbl_users";
 
-$conn = mysqli_connect($servername, $dbUsername, $dbPassword, $dbName);
+$conn = mysqli_connect($host, $user, $pass, $db);
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());

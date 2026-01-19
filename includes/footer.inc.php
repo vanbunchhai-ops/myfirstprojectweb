@@ -1,5 +1,6 @@
+<hr>
 <footer>
-        <p>&copy; 2024 MyTesting1</p>
-    </footer>
+    <p>&copy; <?= date("Y") ?> MFPHP</p>
+</footer>
 </body>
 </html>
